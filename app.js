@@ -1,4 +1,4 @@
-// Import the Firebase modules
+// Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
@@ -10,8 +10,9 @@ const firebaseConfig = {
   projectId: "messager-4abd8",
   storageBucket: "messager-4abd8.appspot.com",
   messagingSenderId: "650985879545",
-  appId: "1:650985879545:web:77492f5da7de018d40af28"
+  appId: "1:650985879545:web:77492f5da7de018d40af28",
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
@@ -23,31 +24,33 @@ const status = document.getElementById("status");
 
 // Upload function
 uploadButton.addEventListener("click", () => {
-  const file = fileInput.files[0]; // Get the file from the input
+  const file = fileInput.files[0]; // Get the selected file
   if (!file) {
     status.textContent = "Please select a file first.";
     return;
   }
 
-  const storageRef = ref(storage, `uploads/${file.name}`); // Reference to storage path
+  const storageRef = ref(storage, `uploads/${file.name}`); // Set the storage path
   const uploadTask = uploadBytesResumable(storageRef, file); // Start the upload
 
-  // Monitor the upload process
+  // Monitor upload progress
   uploadTask.on(
     "state_changed",
     (snapshot) => {
-      // Progress indicator
+      // Update progress
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      status.textContent = `Upload is ${progress.toFixed(2)}% done.`;
+      status.textContent = `Uploading... ${progress.toFixed(2)}%`;
     },
     (error) => {
       // Handle errors
       status.textContent = `Upload failed: ${error.message}`;
+      console.error("Error during upload:", error);
     },
     () => {
-      // Upload completed successfully
+      // On success, get the download URL
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        status.innerHTML = `Upload completed! <a href="${downloadURL}" target="_blank">View File</a>`;
+        status.innerHTML = `Upload successful! <a href="${downloadURL}" target="_blank">View File</a>`;
+        console.log("File available at:", downloadURL);
       });
     }
   );
