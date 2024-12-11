@@ -4,15 +4,14 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://w
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBstyCkk70BlLpbEDIiJyiz1IRJeukkU1U",
-  authDomain: "solo-88a04.firebaseapp.com",
-  projectId: "solo-88a04",
-  storageBucket: "solo-88a04.appspot.com",
-  messagingSenderId: "551679669330",
-  appId: "1:551679669330:web:549e6a33c711eb5158db8b",
-  measurementId: "G-09NGBJC6Y3",
+  apiKey: "AIzaSyB3U2gXv6AjgY_wf2c_GBqpoT83LaroWns",
+  authDomain: "messager-4abd8.firebaseapp.com",
+  databaseURL: "https://messager-4abd8.firebaseio.com",
+  projectId: "messager-4abd8",
+  storageBucket: "messager-4abd8.appspot.com",
+  messagingSenderId: "650985879545",
+  appId: "1:650985879545:web:77492f5da7de018d40af28"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
